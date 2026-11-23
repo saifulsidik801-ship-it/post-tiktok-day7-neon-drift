@@ -12,3 +12,10 @@ if (!entry.url || typeof entry.url !== "string") {
 }
 copyFileSync("VIDEO.json", `${outDir}/VIDEO.json`);
 console.log("VIDEO.json copied to " + outDir + " (" + entry.url + ")");
+
+// Small check used by tooling around this entrypoint: a TikTok video URL
+// should live on tiktok.com and carry a numeric video id after /video/.
+// Pure string test only — it never touches the network or the filesystem.
+export function isTikTokVideoUrl(candidate: string): boolean {
+  return /^https:\/\/(www\.)?tiktok\.com\/@[\w.-]+\/video\/\d+$/.test(candidate);
+}
