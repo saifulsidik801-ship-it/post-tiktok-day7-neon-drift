@@ -1,0 +1,14 @@
+game/
+*.webm
+*.wav
+*.mp4
+frames/
+check-*.png
+sheet*.jpg
+fix_*.jpg
+*.cjs
+*-events.json
+audio-timeline.json
+JetBrainsMono-Bold.ttf
+endcard-9x16.webm
+node_modules/
