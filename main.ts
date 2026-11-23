@@ -3,14 +3,18 @@
 // program copies that file into the grader output directory so the
 // entry can be found and checked.
 import { copyFileSync, mkdirSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const videoJsonPath = join(dirname(fileURLToPath(import.meta.url)), "VIDEO.json");
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || "output";
 mkdirSync(outDir, { recursive: true });
-const entry = JSON.parse(readFileSync("VIDEO.json", "utf8"));
+const entry = JSON.parse(readFileSync(videoJsonPath, "utf8"));
 if (!entry.url || typeof entry.url !== "string") {
   throw new Error("VIDEO.json must contain a url string");
 }
-copyFileSync("VIDEO.json", `${outDir}/VIDEO.json`);
+copyFileSync(videoJsonPath, `${outDir}/VIDEO.json`);
 console.log("VIDEO.json copied to " + outDir + " (" + entry.url + ")");
 
 // Small check used by tooling around this entrypoint: a TikTok video URL
